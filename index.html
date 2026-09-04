@@ -18,10 +18,6 @@
     button { font:inherit; }
     .grain { background-image: radial-gradient(rgba(18,18,18,.075) .6px, transparent .7px); background-size:5px 5px; }
     .grid-rule { background-image: linear-gradient(to right, rgba(18,18,18,.13) 1px, transparent 1px), linear-gradient(to bottom, rgba(18,18,18,.13) 1px, transparent 1px); background-size:24px 24px; }
-    .menu-card { transition:background .18s ease, color .18s ease, transform .18s ease; }
-    .menu-card:hover { background:#121212; color:#f4f4f2; transform:translateY(-2px); }
-    .menu-card:hover .muted, .menu-card:hover .temp-switch { color:#bdbdb8; border-color:#666; }
-    .menu-card:hover .add-btn { background:#f59e0b; color:#121212; border-color:#f59e0b; }
     .status-dot { animation:pulse 1.8s infinite; }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.25; } }
   </style>
@@ -34,7 +30,7 @@
           <span class="grid h-9 w-9 place-items-center border border-tungsten text-lg text-tungsten">CH</span>
           <span class="text-sm font-black uppercase tracking-[.2em]">Coffee<br>Hauz</span>
         </a>
-        <div class="hidden text-right text-[10px] uppercase leading-4 tracking-[.14em] text-neutral-400 sm:block">Seri Kembangan, MY<br><span class="text-mortar">Est. after 4 PM</span></div>
+        <nav class="flex items-center gap-1 text-[10px] font-black uppercase tracking-[.14em]" aria-label="Primary navigation"><a href="#top" class="px-3 py-3 text-neutral-400 hover:text-tungsten">Home</a><a href="menu.html" class="border-b-2 border-tungsten px-3 py-3 text-mortar">Menu</a></nav>
         <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="border border-neutral-600 px-3 py-2 text-xs font-bold uppercase tracking-widest hover:border-tungsten hover:text-tungsten">Directions ↗</a>
       </div>
     </header>
@@ -57,18 +53,6 @@
           <a href="menu.html" class="mt-8 flex items-center justify-between border-y border-neutral-700 py-3 text-xs font-bold uppercase tracking-widest text-tungsten">Open mobile menu <span aria-hidden="true">↗</span></a>
         </aside>
       </div>
-    </section>
-
-    <section id="menu" class="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8">
-        <div class="mb-7 flex flex-col gap-5 border-b border-neutral-800 pb-5 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p class="text-[10px] font-bold uppercase tracking-[.2em] text-structural">Menu board / 02</p>
-          <h2 class="mt-2 text-3xl font-black uppercase tracking-[-.06em]">On the board</h2>
-        </div>
-        <div id="categoryTabs" class="flex flex-wrap gap-2" role="tablist" aria-label="Menu categories"></div>
-      </div>
-      <div class="mb-5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[.16em] text-structural"><span id="menuCount">0 items</span><span>Ask at the counter · Prices in MYR</span></div>
-      <div id="menuGrid" class="grid grid-cols-1 gap-px border border-neutral-300 bg-neutral-300 md:grid-cols-2 xl:grid-cols-3"></div>
     </section>
 
     <section class="border-y border-neutral-800 bg-tungsten px-4 py-4 sm:px-6 lg:px-8">
@@ -98,49 +82,9 @@
   </main>
 
   <script>
-    class MenuItem {
-      constructor({ id, name, category, priceIce, priceHot, description, isAvailable = true }) { Object.assign(this, { id, name, category, priceIce, priceHot, description, isAvailable }); }
-      priceFor(temperature) { return temperature === 'Hot' ? this.priceHot : this.priceIce; }
-      supports(temperature) { return this.priceFor(temperature) !== null; }
-      get hasTemperatureChoice() { return this.category !== 'Bites'; }
-    }
-    class MenuCatalog {
-      #items; constructor(items) { this.#items = items.map(item => new MenuItem(item)); }
-      categories() { return ['All', ...new Set(this.#items.map(item => item.category))]; }
-      filter(category) { return this.#items.filter(item => category === 'All' || item.category === category); }
-    }
-    class CafeStatusTracker {
-      constructor(openHour = 16) { this.openHour = openHour; }
-      get status() { const hour = new Date().getHours(); return hour >= this.openHour ? { label:'Open Tonight', open:true } : { label:`Roasting Soon · Opens ${this.openHour > 12 ? this.openHour - 12 : this.openHour} PM`, open:false }; }
-    }
-    class UIRenderer {
-      #catalog; #status; #activeCategory = 'All';
-      constructor(catalog, status) { this.#catalog=catalog; this.#status=status; this.el = { grid:document.querySelector('#menuGrid'), tabs:document.querySelector('#categoryTabs'), count:document.querySelector('#menuCount'), status:document.querySelector('#statusText') }; }
-      init() { this.renderTabs(); this.renderMenu(); this.renderStatus(); this.bindEvents(); }
-      format(value) { return `RM ${value.toFixed(2)}`; }
-      renderStatus() { const status=this.#status.status; this.el.status.textContent=status.label; this.el.status.parentElement.classList.toggle('text-tungsten', status.open); }
-      renderTabs() { this.el.tabs.innerHTML=this.#catalog.categories().map(category => `<button data-category="${category}" class="border px-3 py-2 text-[10px] font-bold uppercase tracking-widest ${category === this.#activeCategory ? 'border-charcoal bg-charcoal text-mortar' : 'border-neutral-400 hover:border-charcoal'}" role="tab" aria-selected="${category === this.#activeCategory}">${category}</button>`).join(''); }
-      renderMenu() { const items=this.#catalog.filter(this.#activeCategory); this.el.count.textContent=`${items.length} items`; this.el.grid.innerHTML=items.map(item => { const temperatures=[item.priceIce !== null ? `Ice ${this.format(item.priceIce)}` : '', item.priceHot !== null ? `Hot ${this.format(item.priceHot)}` : ''].filter(Boolean); const price=item.hasTemperatureChoice ? temperatures.join(' · ') : this.format(item.priceIce); return `<article class="menu-card flex min-h-64 flex-col justify-between bg-mortar p-5"><div><div class="mb-7"><span class="border border-current px-2 py-1 text-[9px] font-bold uppercase tracking-widest">${item.category}</span></div><h3 class="text-2xl font-black uppercase leading-6 tracking-[-.06em]">${item.name}</h3><p class="mt-3 text-base font-black uppercase tracking-[-.04em] text-tungsten sm:text-lg">${price}</p><p class="muted mt-3 max-w-sm text-xs leading-5 text-structural">${item.description}</p></div><p class="mt-6 border-t border-neutral-300 pt-3 text-[10px] font-bold uppercase tracking-widest text-structural">Available at counter</p></article>`; }).join(''); }
-      bindEvents() { this.el.tabs.addEventListener('click',e=>{ const button=e.target.closest('[data-category]'); if (!button) return; this.#activeCategory=button.dataset.category; this.renderTabs(); this.renderMenu(); }); }
-    }
-    const menuData = [
-      {id:'americano',name:'Americano',category:'Coffee',priceIce:6,priceHot:5,description:'Espresso cut with water. Straight, clean, no fuss.'},
-      {id:'latte',name:'Latte',category:'Coffee',priceIce:7,priceHot:6,description:'Espresso and milk, built for a long outdoor sit.'},
-      {id:'gula-aren',name:'Latte Gula Aren',category:'Coffee',priceIce:8,priceHot:7,description:'Espresso, milk, and deep palm sugar.'},
-      {id:'spanish',name:'Spanish Latte',category:'Coffee',priceIce:8,priceHot:7,description:'Condensed milk sweetness with a proper coffee edge.'},
-      {id:'caramel-butter',name:'Caramel Butter Latte',category:'Coffee',priceIce:10,priceHot:9,description:'Buttery caramel through espresso and milk.'},
-      {id:'mocha',name:'Mocha',category:'Coffee',priceIce:9,priceHot:8,description:'Chocolate, espresso, milk. Familiar for good reason.'},
-      {id:'toffee-nut',name:'Mocha Toffee Nut Latte',category:'Coffee',priceIce:12,priceHot:11,description:'Chocolate coffee with a toasted nut finish.'},
-      {id:'matcha-latte',name:'Matcha Latte',category:'Matcha & Tea',priceIce:8,priceHot:7,description:'Green tea, milk, and a little calm before night.'},
-      {id:'dirty-matcha',name:'Matcha Espresso / Dirty Matcha',category:'Matcha & Tea',priceIce:10,priceHot:9,description:'Matcha and espresso on the same shift.'},
-      {id:'matcha-strawberry',name:'Matcha Strawberry',category:'Matcha & Tea',priceIce:12,priceHot:11,description:'Matcha milk with strawberry sweetness.'},
-      {id:'lemon-tea',name:'Lemon Tea',category:'Matcha & Tea',priceIce:5,priceHot:4,description:'A sharp, simple reset between conversations.'},
-      {id:'honey-lemon',name:'Honey Lemon Tea',category:'Matcha & Tea',priceIce:6,priceHot:5,description:'Tea, honey, lemon. Easy in either temperature.'},
-      {id:'pistachio',name:'Iced Pistachio Latte',category:'Matcha & Tea',priceIce:12,priceHot:null,description:'Seasonal: espresso, creamy pistachio, cold milk.'},
-      {id:'loaded-fries',name:'Cheezy Loaded Fries',category:'Bites',priceIce:10,priceHot:null,description:'Hot fries, cheese sauce, and enough crunch.'},
-      {id:'salted-fries',name:'Salted French Fries',category:'Bites',priceIce:6,priceHot:null,description:'Salt, potato, a paper tray. That is the brief.'}
-    ];
-    const app = new UIRenderer(new MenuCatalog(menuData), new CafeStatusTracker()); app.init();
+    const openHour = 16;
+    const status = new Date().getHours() >= openHour ? 'Open Tonight' : 'Roasting Soon · Opens 4 PM';
+    document.querySelector('#statusText').textContent = status;
   </script>
 </body>
 </html>
