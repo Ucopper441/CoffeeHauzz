@@ -46,13 +46,13 @@
           <div class="relative max-w-3xl">
             <p class="mb-5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.22em] text-tungsten"><span class="status-dot h-2 w-2 bg-tungsten"></span><span id="statusText">Checking service</span></p>
             <h1 class="text-5xl font-black uppercase leading-[.85] tracking-[-.08em] sm:text-7xl">Coffee<br><span class="text-tungsten">Hauz</span></h1>
-            <p class="mt-7 max-w-xl text-sm leading-6 text-neutral-300">Outdoor coffee &amp; sides on Jalan PP 14. White breeze blocks, gravel underfoot, camping chairs, and the lights come on when the sun drops.</p>
+            <p class="mt-7 max-w-xl text-sm leading-6 text-neutral-300">Outdoor coffee &amp; sides in Seri Kembangan. White breeze blocks, gravel underfoot, camping chairs, and the lights come on when the sun drops.</p>
           </div>
         </div>
         <aside class="flex flex-col justify-between px-4 py-7 sm:px-6 lg:col-span-4 lg:px-8">
           <div>
             <p class="text-[10px] font-bold uppercase tracking-[.2em] text-neutral-500">Field notes / 01</p>
-            <p class="mt-4 text-sm leading-6">12, Jalan PP 14<br>Taman Pinggiran Putra<br>Seri Kembangan</p>
+            <p class="mt-4 text-sm leading-6">Breeze-block shelter<br>Gravel underfoot<br>Lights at sundown</p>
           </div>
           <a href="#menu" class="mt-8 flex items-center justify-between border-y border-neutral-700 py-3 text-xs font-bold uppercase tracking-widest text-tungsten">View the board <span aria-hidden="true">↓</span></a>
         </aside>
@@ -73,6 +73,20 @@
 
     <section class="border-y border-neutral-800 bg-tungsten px-4 py-4 sm:px-6 lg:px-8">
       <div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs font-bold uppercase tracking-widest sm:flex-row"><span>Outdoor tables · Gravel floor · Bring a friend</span><span>Walk in · Counter service</span></div>
+    </section>
+
+    <section class="border-b border-neutral-800 bg-charcoal px-4 py-9 text-mortar sm:px-6 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-12 lg:gap-8">
+        <div class="lg:col-span-4 lg:py-5">
+          <p class="text-[10px] font-bold uppercase tracking-[.2em] text-tungsten">Find the hauz / 03</p>
+          <h2 class="mt-3 text-4xl font-black uppercase leading-none tracking-[-.07em]">Come by<br>after dark.</h2>
+          <p class="mt-5 max-w-sm text-sm leading-6 text-neutral-300">Park up, find a camping chair, and order at the counter. The map opens straight to Coffee Hauz.</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex border border-tungsten px-4 py-3 text-xs font-black uppercase tracking-widest text-tungsten transition-colors hover:bg-tungsten hover:text-charcoal">Open directions ↗</a>
+        </div>
+        <div class="overflow-hidden border border-neutral-600 bg-neutral-200 lg:col-span-8">
+          <iframe title="Map to Coffee Hauz, Seri Kembangan" src="https://www.google.com/maps?q=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan&z=15&output=embed" class="h-[360px] w-full border-0 grayscale contrast-125 sm:h-[420px]" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
     </section>
 
     <footer class="mx-auto grid max-w-7xl grid-cols-1 border-x border-neutral-300 sm:grid-cols-2 lg:grid-cols-4">
@@ -106,7 +120,7 @@
       format(value) { return `RM ${value.toFixed(2)}`; }
       renderStatus() { const status=this.#status.status; this.el.status.textContent=status.label; this.el.status.parentElement.classList.toggle('text-tungsten', status.open); }
       renderTabs() { this.el.tabs.innerHTML=this.#catalog.categories().map(category => `<button data-category="${category}" class="border px-3 py-2 text-[10px] font-bold uppercase tracking-widest ${category === this.#activeCategory ? 'border-charcoal bg-charcoal text-mortar' : 'border-neutral-400 hover:border-charcoal'}" role="tab" aria-selected="${category === this.#activeCategory}">${category}</button>`).join(''); }
-      renderMenu() { const items=this.#catalog.filter(this.#activeCategory); this.el.count.textContent=`${items.length} items`; this.el.grid.innerHTML=items.map(item => { const temperatures=[item.priceIce !== null ? `Ice ${this.format(item.priceIce)}` : '', item.priceHot !== null ? `Hot ${this.format(item.priceHot)}` : ''].filter(Boolean); const price=item.hasTemperatureChoice ? temperatures.join(' · ') : this.format(item.priceIce); return `<article class="menu-card flex min-h-64 flex-col justify-between bg-mortar p-5"><div><div class="mb-7 flex items-start justify-between gap-3"><span class="border border-current px-2 py-1 text-[9px] font-bold uppercase tracking-widest">${item.category}</span><span class="text-[10px] font-black uppercase tracking-widest text-right">${price}</span></div><h3 class="text-2xl font-black uppercase leading-6 tracking-[-.06em]">${item.name}</h3><p class="muted mt-3 max-w-sm text-xs leading-5 text-structural">${item.description}</p></div><p class="mt-6 border-t border-neutral-300 pt-3 text-[10px] font-bold uppercase tracking-widest text-structural">Available at counter</p></article>`; }).join(''); }
+      renderMenu() { const items=this.#catalog.filter(this.#activeCategory); this.el.count.textContent=`${items.length} items`; this.el.grid.innerHTML=items.map(item => { const temperatures=[item.priceIce !== null ? `Ice ${this.format(item.priceIce)}` : '', item.priceHot !== null ? `Hot ${this.format(item.priceHot)}` : ''].filter(Boolean); const price=item.hasTemperatureChoice ? temperatures.join(' · ') : this.format(item.priceIce); return `<article class="menu-card flex min-h-64 flex-col justify-between bg-mortar p-5"><div><div class="mb-7"><span class="border border-current px-2 py-1 text-[9px] font-bold uppercase tracking-widest">${item.category}</span></div><h3 class="text-2xl font-black uppercase leading-6 tracking-[-.06em]">${item.name}</h3><p class="mt-3 text-base font-black uppercase tracking-[-.04em] text-tungsten sm:text-lg">${price}</p><p class="muted mt-3 max-w-sm text-xs leading-5 text-structural">${item.description}</p></div><p class="mt-6 border-t border-neutral-300 pt-3 text-[10px] font-bold uppercase tracking-widest text-structural">Available at counter</p></article>`; }).join(''); }
       bindEvents() { this.el.tabs.addEventListener('click',e=>{ const button=e.target.closest('[data-category]'); if (!button) return; this.#activeCategory=button.dataset.category; this.renderTabs(); this.renderMenu(); }); }
     }
     const menuData = [
