@@ -24,15 +24,6 @@
     .menu-card:hover .add-btn { background:#f59e0b; color:#121212; border-color:#f59e0b; }
     .status-dot { animation:pulse 1.8s infinite; }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.25; } }
-    .drawer { transform:translateX(105%); transition:transform .28s cubic-bezier(.2,.8,.2,1); }
-    .drawer.open { transform:translateX(0); }
-    .veil { opacity:0; pointer-events:none; transition:opacity .28s ease; }
-    .veil.open { opacity:1; pointer-events:auto; }
-    .cart-bump { animation:bump .32s ease; }
-    @keyframes bump { 50% { transform:scale(1.08); } }
-    .ticket-notch:before, .ticket-notch:after { content:''; position:absolute; width:18px; height:18px; background:var(--paper); border:1px solid #d4d4d0; border-radius:50%; left:-10px; }
-    .ticket-notch:before { top:32%; } .ticket-notch:after { bottom:24%; }
-    @media (max-width:640px) { .drawer { width:100%; } }
   </style>
 </head>
 <body class="grain antialiased">
@@ -44,9 +35,7 @@
           <span class="text-sm font-black uppercase tracking-[.2em]">Coffee<br>Hauz</span>
         </a>
         <div class="hidden text-right text-[10px] uppercase leading-4 tracking-[.14em] text-neutral-400 sm:block">Seri Kembangan, MY<br><span class="text-mortar">Est. after 4 PM</span></div>
-        <button id="cartToggle" class="relative flex items-center gap-3 border border-neutral-600 px-3 py-2 text-xs font-bold uppercase tracking-widest hover:border-tungsten hover:text-tungsten" aria-label="Open order" aria-expanded="false">
-          <span>Order</span><span id="cartCount" class="grid h-5 min-w-5 place-items-center bg-tungsten px-1 text-[10px] text-charcoal">0</span>
-        </button>
+        <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="border border-neutral-600 px-3 py-2 text-xs font-bold uppercase tracking-widest hover:border-tungsten hover:text-tungsten">Directions ↗</a>
       </div>
     </header>
 
@@ -71,19 +60,19 @@
     </section>
 
     <section id="menu" class="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8">
-      <div class="mb-7 flex flex-col gap-5 border-b border-neutral-800 pb-5 md:flex-row md:items-end md:justify-between">
+        <div class="mb-7 flex flex-col gap-5 border-b border-neutral-800 pb-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <p class="text-[10px] font-bold uppercase tracking-[.2em] text-structural">Order board / 02</p>
-          <h2 class="mt-2 text-3xl font-black uppercase tracking-[-.06em]">Pick your pour</h2>
+          <p class="text-[10px] font-bold uppercase tracking-[.2em] text-structural">Menu board / 02</p>
+          <h2 class="mt-2 text-3xl font-black uppercase tracking-[-.06em]">On the board</h2>
         </div>
         <div id="categoryTabs" class="flex flex-wrap gap-2" role="tablist" aria-label="Menu categories"></div>
       </div>
-      <div class="mb-5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[.16em] text-structural"><span id="menuCount">0 items</span><span>All prices in MYR</span></div>
+      <div class="mb-5 flex items-center justify-between text-[10px] font-bold uppercase tracking-[.16em] text-structural"><span id="menuCount">0 items</span><span>Ask at the counter · Prices in MYR</span></div>
       <div id="menuGrid" class="grid grid-cols-1 gap-px border border-neutral-300 bg-neutral-300 md:grid-cols-2 xl:grid-cols-3"></div>
     </section>
 
     <section class="border-y border-neutral-800 bg-tungsten px-4 py-4 sm:px-6 lg:px-8">
-      <div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs font-bold uppercase tracking-widest sm:flex-row"><span>Outdoor tables · Gravel floor · Bring a friend</span><span>Ice / Hot selected per cup</span></div>
+      <div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs font-bold uppercase tracking-widest sm:flex-row"><span>Outdoor tables · Gravel floor · Bring a friend</span><span>Walk in · Counter service</span></div>
     </section>
 
     <footer class="mx-auto grid max-w-7xl grid-cols-1 border-x border-neutral-300 sm:grid-cols-2 lg:grid-cols-4">
@@ -94,42 +83,12 @@
     </footer>
   </main>
 
-  <div id="veil" class="veil fixed inset-0 z-40 bg-black/55"></div>
-  <aside id="drawer" class="drawer fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-neutral-800 bg-mortar shadow-2xl" aria-label="Order summary" aria-hidden="true">
-    <div class="flex items-center justify-between border-b border-neutral-800 p-4 sm:p-6"><div><p class="text-[10px] font-bold uppercase tracking-[.2em] text-structural">Your order</p><h2 class="mt-1 text-2xl font-black uppercase tracking-[-.06em]">Counter ticket</h2></div><button id="drawerClose" class="grid h-10 w-10 place-items-center border border-neutral-800 text-xl hover:bg-charcoal hover:text-mortar" aria-label="Close order">×</button></div>
-    <div id="cartItems" class="flex-1 overflow-y-auto p-4 sm:p-6"></div>
-    <div class="border-t border-neutral-800 bg-charcoal p-4 text-mortar sm:p-6">
-      <div class="space-y-2 border-b border-neutral-600 pb-4 text-xs uppercase tracking-widest text-neutral-400"><div class="flex justify-between"><span>Subtotal</span><span id="subtotal">RM 0.00</span></div><div class="flex justify-between"><span>Service tax / 0%</span><span id="tax">RM 0.00</span></div></div>
-      <div class="flex items-end justify-between py-5"><span class="text-xs font-bold uppercase tracking-widest">Total</span><span id="total" class="text-3xl font-black tabular-nums tracking-[-.08em]">RM 0.00</span></div>
-      <button id="checkoutBtn" class="w-full border border-tungsten bg-tungsten px-4 py-4 text-xs font-black uppercase tracking-[.18em] text-charcoal hover:bg-mortar">Send order to counter</button>
-      <p id="checkoutNote" class="mt-3 min-h-4 text-center text-[10px] uppercase tracking-widest text-neutral-400"></p>
-    </div>
-  </aside>
-
   <script>
     class MenuItem {
       constructor({ id, name, category, priceIce, priceHot, description, isAvailable = true }) { Object.assign(this, { id, name, category, priceIce, priceHot, description, isAvailable }); }
       priceFor(temperature) { return temperature === 'Hot' ? this.priceHot : this.priceIce; }
       supports(temperature) { return this.priceFor(temperature) !== null; }
       get hasTemperatureChoice() { return this.category !== 'Bites'; }
-    }
-    class OrderItem {
-      constructor(menuItem, temperature = 'Ice', quantity = 1) { this.menuItem = menuItem; this.temperature = temperature; this.quantity = quantity; }
-      get key() { return `${this.menuItem.id}-${this.temperature}`; }
-      get unitPrice() { return this.menuItem.priceFor(this.temperature); }
-      get subtotal() { return this.unitPrice * this.quantity; }
-    }
-    class Cart extends EventTarget {
-      #items = []; #taxRate = 0;
-      get items() { return [...this.#items]; }
-      add(menuItem, temperature) { const existing = this.#items.find(item => item.key === `${menuItem.id}-${temperature}`); existing ? existing.quantity++ : this.#items.push(new OrderItem(menuItem, temperature)); this.#emit(); }
-      change(key, amount) { const item = this.#items.find(entry => entry.key === key); if (!item) return; item.quantity += amount; if (item.quantity <= 0) this.#items = this.#items.filter(entry => entry.key !== key); this.#emit(); }
-      remove(key) { this.#items = this.#items.filter(item => item.key !== key); this.#emit(); }
-      get count() { return this.#items.reduce((sum, item) => sum + item.quantity, 0); }
-      get subtotal() { return this.#items.reduce((sum, item) => sum + item.subtotal, 0); }
-      get tax() { return this.subtotal * this.#taxRate; }
-      get total() { return this.subtotal + this.tax; }
-      #emit() { this.dispatchEvent(new CustomEvent('update', { detail: { count:this.count, subtotal:this.subtotal, tax:this.tax, total:this.total, items:this.items } })); }
     }
     class MenuCatalog {
       #items; constructor(items) { this.#items = items.map(item => new MenuItem(item)); }
@@ -141,20 +100,14 @@
       get status() { const hour = new Date().getHours(); return hour >= this.openHour ? { label:'Open Tonight', open:true } : { label:`Roasting Soon · Opens ${this.openHour > 12 ? this.openHour - 12 : this.openHour} PM`, open:false }; }
     }
     class UIRenderer {
-      #catalog; #cart; #status; #activeCategory = 'All'; #temperatures = new Map();
-      constructor(catalog, cart, status) { this.#catalog=catalog; this.#cart=cart; this.#status=status; this.el = { grid:document.querySelector('#menuGrid'), tabs:document.querySelector('#categoryTabs'), count:document.querySelector('#menuCount'), cartCount:document.querySelector('#cartCount'), cartItems:document.querySelector('#cartItems'), subtotal:document.querySelector('#subtotal'), tax:document.querySelector('#tax'), total:document.querySelector('#total'), drawer:document.querySelector('#drawer'), veil:document.querySelector('#veil'), toggle:document.querySelector('#cartToggle'), status:document.querySelector('#statusText'), note:document.querySelector('#checkoutNote') }; }
-      init() { this.renderTabs(); this.renderMenu(); this.renderStatus(); this.bindEvents(); this.#cart.addEventListener('update', event => this.renderCart(event.detail)); this.renderCart({ count:0, subtotal:0, tax:0, total:0, items:[] }); }
+      #catalog; #status; #activeCategory = 'All';
+      constructor(catalog, status) { this.#catalog=catalog; this.#status=status; this.el = { grid:document.querySelector('#menuGrid'), tabs:document.querySelector('#categoryTabs'), count:document.querySelector('#menuCount'), status:document.querySelector('#statusText') }; }
+      init() { this.renderTabs(); this.renderMenu(); this.renderStatus(); this.bindEvents(); }
       format(value) { return `RM ${value.toFixed(2)}`; }
       renderStatus() { const status=this.#status.status; this.el.status.textContent=status.label; this.el.status.parentElement.classList.toggle('text-tungsten', status.open); }
       renderTabs() { this.el.tabs.innerHTML=this.#catalog.categories().map(category => `<button data-category="${category}" class="border px-3 py-2 text-[10px] font-bold uppercase tracking-widest ${category === this.#activeCategory ? 'border-charcoal bg-charcoal text-mortar' : 'border-neutral-400 hover:border-charcoal'}" role="tab" aria-selected="${category === this.#activeCategory}">${category}</button>`).join(''); }
-      defaultTemperature(item) { return item.hasTemperatureChoice ? (item.supports('Ice') ? 'Ice' : 'Hot') : 'Standard'; }
-      renderMenu() { const items=this.#catalog.filter(this.#activeCategory); this.el.count.textContent=`${items.length} items`; this.el.grid.innerHTML=items.map(item => { const temp=this.#temperatures.get(item.id) || this.defaultTemperature(item); const hot=item.supports('Hot'); const ice=item.supports('Ice'); const switcher=item.hasTemperatureChoice ? `<div class="temp-switch flex border border-neutral-400 text-[10px] font-bold uppercase tracking-widest">${ice ? `<button data-temp="Ice" data-id="${item.id}" class="px-3 py-2 ${temp==='Ice' ? 'bg-charcoal text-mortar' : ''}">Ice</button>` : ''}${hot ? `<button data-temp="Hot" data-id="${item.id}" class="px-3 py-2 ${temp==='Hot' ? 'bg-charcoal text-mortar' : ''}">Hot</button>` : ''}</div>` : '<span class="text-[10px] font-bold uppercase tracking-widest text-structural">Counter side</span>'; return `<article class="menu-card flex min-h-64 flex-col justify-between bg-mortar p-5">
-        <div><div class="mb-7 flex items-start justify-between gap-3"><span class="border border-current px-2 py-1 text-[9px] font-bold uppercase tracking-widest">${item.category}</span><span class="text-xl font-black tabular-nums tracking-[-.08em]">${this.format(item.priceFor(temp))}</span></div><h3 class="text-2xl font-black uppercase leading-6 tracking-[-.06em]">${item.name}</h3><p class="muted mt-3 max-w-sm text-xs leading-5 text-structural">${item.description}</p></div>
-        <div class="mt-6 flex items-center justify-between gap-3">${switcher}<button data-add="${item.id}" class="add-btn border border-charcoal px-4 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-tungsten hover:text-charcoal">Add +</button></div>
-      </article>`; }).join(''); }
-      renderCart(state) { this.el.cartCount.textContent=state.count; this.el.subtotal.textContent=this.format(state.subtotal); this.el.tax.textContent=this.format(state.tax); this.el.total.textContent=this.format(state.total); if (!state.items.length) { this.el.cartItems.innerHTML='<div class="ticket-notch relative mt-4 border border-dashed border-neutral-400 p-8 text-center"><p class="text-xs font-bold uppercase tracking-widest">Ticket is blank</p><p class="mt-3 text-xs leading-5 text-structural">Add a drink or side from the board. Your running total lands here.</p></div>'; return; } this.el.cartItems.innerHTML=state.items.map(item=>`<div class="border-b border-neutral-300 py-4"><div class="flex justify-between gap-4"><div><p class="text-sm font-black uppercase tracking-[-.04em]">${item.menuItem.name}</p><p class="mt-1 text-[10px] font-bold uppercase tracking-widest text-structural">${item.temperature} · ${this.format(item.unitPrice)}</p></div><button data-remove="${item.key}" class="text-[10px] font-bold uppercase tracking-widest text-structural underline hover:text-charcoal">Remove</button></div><div class="mt-4 flex items-center justify-between"><div class="flex border border-neutral-800"><button data-change="${item.key}" data-amount="-1" class="h-8 w-8 hover:bg-charcoal hover:text-mortar" aria-label="Decrease ${item.menuItem.name}">−</button><span class="grid h-8 w-8 place-items-center border-x border-neutral-800 text-xs font-bold tabular-nums">${item.quantity}</span><button data-change="${item.key}" data-amount="1" class="h-8 w-8 hover:bg-charcoal hover:text-mortar" aria-label="Increase ${item.menuItem.name}">+</button></div><span class="text-sm font-black tabular-nums">${this.format(item.subtotal)}</span></div></div>`).join(''); }
-      toggleDrawer(force) { const open=force ?? !this.el.drawer.classList.contains('open'); this.el.drawer.classList.toggle('open',open); this.el.veil.classList.toggle('open',open); this.el.drawer.setAttribute('aria-hidden',String(!open)); this.el.toggle.setAttribute('aria-expanded',String(open)); }
-      bindEvents() { this.el.tabs.addEventListener('click',e=>{ const button=e.target.closest('[data-category]'); if (!button) return; this.#activeCategory=button.dataset.category; this.renderTabs(); this.renderMenu(); }); this.el.grid.addEventListener('click',e=>{ const temp=e.target.closest('[data-temp]'); const add=e.target.closest('[data-add]'); if (temp) { this.#temperatures.set(temp.dataset.id,temp.dataset.temp); this.renderMenu(); } if (add) { const item=this.#catalog.filter('All').find(entry=>entry.id===add.dataset.add); this.#cart.add(item,this.#temperatures.get(item.id) || this.defaultTemperature(item)); this.el.cartCount.classList.remove('cart-bump'); void this.el.cartCount.offsetWidth; this.el.cartCount.classList.add('cart-bump'); } }); this.el.cartItems.addEventListener('click',e=>{ const change=e.target.closest('[data-change]'); const remove=e.target.closest('[data-remove]'); if(change) this.#cart.change(change.dataset.change,Number(change.dataset.amount)); if(remove) this.#cart.remove(remove.dataset.remove); }); this.el.toggle.addEventListener('click',()=>this.toggleDrawer()); document.querySelector('#drawerClose').addEventListener('click',()=>this.toggleDrawer(false)); this.el.veil.addEventListener('click',()=>this.toggleDrawer(false)); document.querySelector('#checkoutBtn').addEventListener('click',()=>{ this.el.note.textContent=this.#cart.count ? 'Show this ticket at the counter.' : 'Add something first.'; }); document.addEventListener('keydown',e=>{ if(e.key==='Escape') this.toggleDrawer(false); }); }
+      renderMenu() { const items=this.#catalog.filter(this.#activeCategory); this.el.count.textContent=`${items.length} items`; this.el.grid.innerHTML=items.map(item => { const temperatures=[item.priceIce !== null ? `Ice ${this.format(item.priceIce)}` : '', item.priceHot !== null ? `Hot ${this.format(item.priceHot)}` : ''].filter(Boolean); const price=item.hasTemperatureChoice ? temperatures.join(' · ') : this.format(item.priceIce); return `<article class="menu-card flex min-h-64 flex-col justify-between bg-mortar p-5"><div><div class="mb-7 flex items-start justify-between gap-3"><span class="border border-current px-2 py-1 text-[9px] font-bold uppercase tracking-widest">${item.category}</span><span class="text-[10px] font-black uppercase tracking-widest text-right">${price}</span></div><h3 class="text-2xl font-black uppercase leading-6 tracking-[-.06em]">${item.name}</h3><p class="muted mt-3 max-w-sm text-xs leading-5 text-structural">${item.description}</p></div><p class="mt-6 border-t border-neutral-300 pt-3 text-[10px] font-bold uppercase tracking-widest text-structural">Available at counter</p></article>`; }).join(''); }
+      bindEvents() { this.el.tabs.addEventListener('click',e=>{ const button=e.target.closest('[data-category]'); if (!button) return; this.#activeCategory=button.dataset.category; this.renderTabs(); this.renderMenu(); }); }
     }
     const menuData = [
       {id:'americano',name:'Americano',category:'Coffee',priceIce:6,priceHot:5,description:'Espresso cut with water. Straight, clean, no fuss.'},
@@ -173,7 +126,7 @@
       {id:'loaded-fries',name:'Cheezy Loaded Fries',category:'Bites',priceIce:10,priceHot:null,description:'Hot fries, cheese sauce, and enough crunch.'},
       {id:'salted-fries',name:'Salted French Fries',category:'Bites',priceIce:6,priceHot:null,description:'Salt, potato, a paper tray. That is the brief.'}
     ];
-    const app = new UIRenderer(new MenuCatalog(menuData), new Cart(), new CafeStatusTracker()); app.init();
+    const app = new UIRenderer(new MenuCatalog(menuData), new CafeStatusTracker()); app.init();
   </script>
 </body>
 </html>
