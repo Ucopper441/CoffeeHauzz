@@ -3,21 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#121212" />
+  <meta name="theme-color" content="#fff3d6" />
   <title>Coffee Hauz — Seri Kembangan</title>
-  <meta name="description" content="Outdoor coffee and sides on Jalan PP 14, Seri Kembangan. Open from 4 PM till late." />
+  <meta name="description" content="Outdoor coffee and sides on Jalan PP 14, Seri Kembangan. Open from 4 PM to 12 AM." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme: { extend: { colors: { mortar:'#f4f4f2', charcoal:'#121212', structural:'#737373', tungsten:'#f59e0b' }, fontFamily: { mono:['ui-monospace','SFMono-Regular','Menlo','monospace'] } } } };
+    tailwind.config = { theme: { extend: { colors: { mortar:'#fff3d6', charcoal:'#087455', structural:'#76513c', tungsten:'#d97745' }, fontFamily: { mono:['Arial','Helvetica','sans-serif'] } } } };
   </script>
   <style>
-    :root { --ink:#121212; --paper:#f4f4f2; --gray:#737373; --amber:#f59e0b; }
+    :root { --ink:#44271d; --paper:#fff3d6; --gray:#76513c; --green:#087455; --amber:#d97745; }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { margin:0; background:var(--paper); color:var(--ink); font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial, Helvetica, sans-serif; }
     button { font:inherit; }
-    .grain { background-image: radial-gradient(rgba(18,18,18,.075) .6px, transparent .7px); background-size:5px 5px; }
-    .grid-rule { background-image: linear-gradient(to right, rgba(18,18,18,.13) 1px, transparent 1px), linear-gradient(to bottom, rgba(18,18,18,.13) 1px, transparent 1px); background-size:24px 24px; }
+    .grain { background-image: radial-gradient(rgba(8,116,85,.07) .7px, transparent .8px); background-size:7px 7px; }
+    .grid-rule { background-image: radial-gradient(circle at 50% 20%,rgba(255,243,214,.14),transparent 42%),linear-gradient(to right,rgba(255,243,214,.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,243,214,.08) 1px,transparent 1px); background-size:auto,32px 32px,32px 32px; }
+    h1,h2,h3,.display { font-family:Arial Black,Arial,Helvetica,sans-serif; }
+    .brand-logo { position:relative; overflow:hidden; flex:none; border:2px solid #fff; border-radius:42% 42% 38% 38% / 35% 35% 48% 48%; background:#fff; box-shadow:0 0 0 1px rgba(255,255,255,.35); }
+    .brand-logo img { position:absolute; left:50%; top:-66%; width:152%; max-width:none; transform:translateX(-50%); }
+    .soft-card { border-radius:30px; box-shadow:0 10px 0 rgba(8,116,85,.09); }
+    .pill { border-radius:999px; }
+    .signature-card { transition:transform .2s ease,box-shadow .2s ease; }
+    .signature-card:hover { transform:translateY(-4px); box-shadow:0 10px 0 rgba(8,116,85,.12); }
+    .signature-card img { aspect-ratio:1 / 1; width:100%; object-fit:cover; }
+    .review-card { transition:transform .2s ease,box-shadow .2s ease; }
+    .review-card:hover { transform:translateY(-4px); box-shadow:0 10px 0 rgba(8,116,85,.12); }
+    .hero-stage { min-height:680px; background-image:linear-gradient(90deg,rgba(25,19,16,.82) 0%,rgba(25,19,16,.66) 43%,rgba(25,19,16,.18) 76%,rgba(25,19,16,.08) 100%),url('assets/download.jpg'); background-position:center; background-size:cover; }
+    .hero-title { font-family:Georgia,'Times New Roman',serif; text-wrap:balance; }
+    .js .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1); transition-delay:var(--reveal-delay,0ms); }
+    .js .reveal.from-left { transform:translateX(-34px); }
+    .js .reveal.from-right { transform:translateX(34px); }
+    .js .reveal.is-visible { opacity:1; transform:translate(0,0); }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .js .reveal { opacity:1; transform:none; transition:none; } .status-dot { animation:none; } }
+    @media (max-width:767px) {
+      .hero-stage { min-height:620px; background-image:linear-gradient(90deg,rgba(25,19,16,.86),rgba(25,19,16,.48)),url('assets/download.jpg'); background-position:58% center; }
+      .hero-title { font-size:clamp(2.65rem,13vw,4.5rem); }
+      .review-card > div:first-child { flex-direction:column; }
+      .map-frame,.map-frame iframe { height:320px; }
+    }
+    @media (max-width:479px) {
+      .brand-name { display:none; }
+      .site-header-inner { gap:.35rem; padding-left:.75rem; padding-right:.75rem; }
+      .site-nav a { padding-left:.55rem; padding-right:.55rem; }
+      .header-directions { padding:.55rem .7rem; font-size:.6rem; }
+      .header-directions .full-label { display:none; }
+      .header-directions .short-label { display:inline; }
+      .rating-grid { grid-template-columns:1fr; }
+    }
+    @media (min-width:480px) { .header-directions .short-label { display:none; } }
+    @media (max-width:380px) { .signature-grid { grid-template-columns:1fr; } }
     .status-dot { animation:pulse 1.8s infinite; }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.25; } }
   </style>
@@ -25,41 +59,44 @@
 <body class="grain antialiased">
   <main class="min-h-screen overflow-hidden">
     <header class="border-b border-neutral-800 bg-charcoal text-mortar">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div class="site-header-inner mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <a href="#top" class="flex items-center gap-3" aria-label="Coffee Hauz home">
-          <span class="grid h-9 w-9 place-items-center border border-tungsten text-lg text-tungsten">CH</span>
-          <span class="text-sm font-black uppercase tracking-[.2em]">Coffee<br>Hauz</span>
+          <span class="brand-logo h-11 w-11"><img src="assets/CoffeeHauzLogo.png" alt="" /></span>
+          <span class="brand-name text-sm font-black uppercase tracking-[.2em]">Coffee<br>Hauz</span>
         </a>
-        <nav class="flex items-center gap-1 text-[10px] font-black uppercase tracking-[.14em]" aria-label="Primary navigation"><a href="#top" class="border-b-2 border-tungsten px-3 py-3 text-mortar" aria-current="page">Home</a><a href="menu.html" class="px-3 py-3 text-neutral-400 hover:text-tungsten">Menu</a></nav>
-        <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="border border-neutral-600 px-3 py-2 text-xs font-bold uppercase tracking-widest hover:border-tungsten hover:text-tungsten">Directions ↗</a>
+        <nav class="site-nav flex items-center gap-1 text-[10px] font-black uppercase tracking-[.14em]" aria-label="Primary navigation"><a href="#top" class="border-b-2 border-tungsten px-3 py-3 text-mortar" aria-current="page">Home</a><a href="menu.html" class="px-3 py-3 text-neutral-400 hover:text-tungsten">Menu</a></nav>
+        <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="header-directions rounded-full border border-mortar/60 px-3 py-2 text-xs font-bold uppercase tracking-widest hover:bg-mortar hover:text-charcoal"><span class="full-label">Directions ↗</span><span class="short-label">Map ↗</span></a>
       </div>
     </header>
 
-    <section id="top" class="border-b border-neutral-800 bg-charcoal text-mortar">
-      <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-12">
-        <div class="relative overflow-hidden border-b border-neutral-700 px-4 py-10 sm:px-6 lg:col-span-8 lg:border-b-0 lg:border-r lg:px-8 lg:py-16">
-          <div class="absolute inset-0 grid-rule opacity-[.18]"></div>
-          <div class="relative max-w-3xl">
-            <p class="mb-5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.22em] text-tungsten"><span class="status-dot h-2 w-2 bg-tungsten"></span><span id="statusText">Checking service</span></p>
-            <h1 class="text-5xl font-black uppercase leading-[.85] tracking-[-.08em] sm:text-7xl">Coffee<br><span class="text-tungsten">Hauz</span></h1>
-            <p class="mt-7 max-w-xl text-sm leading-6 text-neutral-300">Outdoor coffee &amp; sides in Seri Kembangan. White breeze blocks, gravel underfoot, camping chairs, and the lights come on when the sun drops.</p>
+    <section id="top" class="hero-stage relative flex items-center overflow-hidden text-mortar">
+      <div class="mx-auto w-full max-w-7xl px-6 py-16 sm:px-10 lg:px-8">
+        <div class="max-w-3xl">
+          <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-mortar/50 bg-black/15 px-4 py-2 backdrop-blur-sm">
+            <span class="status-dot h-2 w-2 rounded-full bg-tungsten"></span>
+            <span id="statusText" class="text-[10px] font-black uppercase tracking-[.2em]">Checking service</span>
+          </div>
+          <p class="mb-4 text-[10px] font-black uppercase tracking-[.28em] text-[#f2ca79]">Outdoor coffee · Seri Kembangan</p>
+          <h1 class="hero-title text-5xl font-bold leading-[.98] tracking-[-.045em] text-white sm:text-7xl lg:text-[84px]">Good coffee. Good company. Your table after dark.</h1>
+          <p class="mt-7 max-w-2xl text-base font-medium leading-7 text-mortar/90 sm:text-lg">Settle into a camping chair, order at the counter, and stay awhile. We pour from 4 PM to 12 AM.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="menu.html" class="pill bg-charcoal px-6 py-3 text-xs font-black uppercase tracking-widest text-mortar shadow-lg transition-transform hover:-translate-y-0.5">See the menu</a>
+            <a href="#location" class="pill border border-mortar bg-mortar/10 px-6 py-3 text-xs font-black uppercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-mortar hover:text-charcoal">Get directions</a>
+          </div>
+          <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-mortar/35 pt-5 text-[10px] font-bold uppercase tracking-wider text-mortar/90">
+            <span><strong class="text-[#f2ca79]">5/5</strong> Food</span>
+            <span><strong class="text-[#f2ca79]">5/5</strong> Service</span>
+            <span><strong class="text-[#f2ca79]">5/5</strong> Atmosphere</span>
           </div>
         </div>
-        <aside class="flex flex-col justify-between px-4 py-7 sm:px-6 lg:col-span-4 lg:px-8">
-          <div>
-            <p class="text-[10px] font-bold uppercase tracking-[.2em] text-neutral-500">Field notes / 01</p>
-            <p class="mt-4 text-sm leading-6">Breeze-block shelter<br>Gravel underfoot<br>Lights at sundown</p>
-          </div>
-          <a href="menu.html" class="mt-8 flex items-center justify-between border-y border-neutral-700 py-3 text-xs font-bold uppercase tracking-widest text-tungsten">Open mobile menu <span aria-hidden="true">↗</span></a>
-        </aside>
       </div>
     </section>
 
-    <section class="border-y border-neutral-800 bg-tungsten px-4 py-4 sm:px-6 lg:px-8">
+    <section class="border-y border-charcoal bg-mortar px-4 py-4 text-charcoal sm:px-6 lg:px-8">
       <div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-xs font-bold uppercase tracking-widest sm:flex-row"><span>Outdoor tables · Gravel floor · Bring a friend</span><span>Walk in · Counter service</span></div>
     </section>
 
-    <section class="border-b border-neutral-800 bg-charcoal px-4 py-9 text-mortar sm:px-6 lg:px-8">
+    <section id="location" class="border-b border-charcoal bg-charcoal px-4 py-9 text-mortar sm:px-6 lg:px-8">
       <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-12 lg:gap-8">
         <div class="lg:col-span-4 lg:py-5">
           <p class="text-[10px] font-bold uppercase tracking-[.2em] text-tungsten">Find the hauz / 03</p>
@@ -67,24 +104,116 @@
           <p class="mt-5 max-w-sm text-sm leading-6 text-neutral-300">Park up, find a camping chair, and order at the counter. The map opens straight to Coffee Hauz.</p>
           <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex border border-tungsten px-4 py-3 text-xs font-black uppercase tracking-widest text-tungsten transition-colors hover:bg-tungsten hover:text-charcoal">Open directions ↗</a>
         </div>
-        <div class="overflow-hidden border border-neutral-600 bg-neutral-200 lg:col-span-8">
-          <iframe title="Map to Coffee Hauz, Seri Kembangan" src="https://www.google.com/maps?q=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan&z=15&output=embed" class="h-[360px] w-full border-0 grayscale contrast-125 sm:h-[420px]" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-frame soft-card overflow-hidden border-4 border-mortar bg-neutral-200 lg:col-span-8">
+          <iframe title="Map to Coffee Hauz, Seri Kembangan" src="https://www.google.com/maps?q=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan&z=15&output=embed" class="h-[360px] w-full border-0 sm:h-[420px]" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
       </div>
     </section>
 
-    <footer class="mx-auto grid max-w-7xl grid-cols-1 border-x border-neutral-300 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="border-b border-neutral-300 px-4 py-6 sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Hours</p><p class="mt-2 text-sm font-bold uppercase">4 PM — Late</p></div>
-      <a href="tel:+12025551234" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Phone</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">+1 (202) 555-1234</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Call the hauz ↗</span></a>
-      <a href="https://www.instagram.com/coffeehauzcafe/" target="_blank" rel="noopener noreferrer" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Instagram</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">@coffeehauzcafe</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Follow the night ↗</span></a>
+    <section id="signatures" class="border-b border-charcoal bg-mortar px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 flex flex-col gap-5 border-b-2 border-charcoal pb-5 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-[10px] font-black uppercase tracking-[.22em] text-tungsten">The Hauz favourites / 02</p>
+            <h2 class="mt-2 text-4xl font-black uppercase leading-none tracking-[-.06em] text-charcoal sm:text-5xl">Signature line up</h2>
+            <p class="mt-3 max-w-xl text-sm leading-6 text-structural">The cups regulars come back for, poured cold and made one at a time.</p>
+          </div>
+          <a href="menu.html" class="pill inline-flex w-fit border-2 border-charcoal px-5 py-3 text-[10px] font-black uppercase tracking-widest text-charcoal transition-colors hover:bg-charcoal hover:text-mortar">View full menu ↗</a>
+        </div>
+        <div class="signature-grid grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <article class="signature-card overflow-hidden rounded-[24px] border-2 border-charcoal bg-mortar">
+            <img src="assets/IcedLatteGulaAren.jpeg" alt="Iced Latte Gula Aren" loading="lazy" />
+            <div class="p-4"><h3 class="text-sm font-black uppercase leading-tight">Latte Gula Aren</h3><p class="mt-2 text-xs font-black text-tungsten">RM 8</p></div>
+          </article>
+          <article class="signature-card overflow-hidden rounded-[24px] border-2 border-charcoal bg-mortar">
+            <img src="assets/IcedPinappleCrushAmericano.jpeg" alt="Iced Pineapple Crush Americano" loading="lazy" />
+            <div class="p-4"><h3 class="text-sm font-black uppercase leading-tight">Pineapple Crush Americano</h3><p class="mt-2 text-xs font-black text-tungsten">RM 12</p></div>
+          </article>
+          <article class="signature-card overflow-hidden rounded-[24px] border-2 border-charcoal bg-mortar">
+            <img src="assets/IcedAvocadoCoffee.jpeg" alt="Iced Avocado Coffee" loading="lazy" />
+            <div class="p-4"><h3 class="text-sm font-black uppercase leading-tight">Avocado Coffee</h3><p class="mt-2 text-xs font-black text-tungsten">RM 12</p></div>
+          </article>
+          <article class="signature-card overflow-hidden rounded-[24px] border-2 border-charcoal bg-mortar">
+            <img src="assets/IcedMatchaStrawberry.jpeg" alt="Iced Matcha Strawberry" loading="lazy" />
+            <div class="p-4"><h3 class="text-sm font-black uppercase leading-tight">Matcha Strawberry</h3><p class="mt-2 text-xs font-black text-tungsten">RM 12</p></div>
+          </article>
+          <article class="signature-card overflow-hidden rounded-[24px] border-2 border-charcoal bg-mortar">
+            <img src="assets/IcedMatchaGreenTea.jpeg" alt="Iced Matcha Green Tea" loading="lazy" />
+            <div class="p-4"><h3 class="text-sm font-black uppercase leading-tight">Matcha Green Tea</h3><p class="mt-2 text-xs font-black text-tungsten">RM 10</p></div>
+          </article>
+          <article class="signature-card overflow-hidden rounded-[24px] border-2 border-charcoal bg-mortar">
+            <img src="assets/IcedMatchaLatte.jpeg" alt="Iced Matcha Latte" loading="lazy" />
+            <div class="p-4"><h3 class="text-sm font-black uppercase leading-tight">Matcha Latte</h3><p class="mt-2 text-xs font-black text-tungsten">RM 8</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="border-b border-charcoal bg-mortar px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 flex flex-col gap-5 border-b-2 border-charcoal pb-5 sm:flex-row sm:items-end sm:justify-between">
+          <div><p class="text-[10px] font-black uppercase tracking-[.22em] text-tungsten">From the ground / 04</p><h2 class="mt-2 text-4xl font-black uppercase leading-none tracking-[-.06em] text-charcoal sm:text-5xl">Local voices</h2><p class="mt-3 max-w-xl text-sm leading-6 text-structural">Kind words from the people who pull up a chair and keep coming back.</p></div>
+          <a href="https://www.google.com/maps/place/Coffee+Hauz/@2.9877829,101.6776949,17z/data=!4m19!1m10!3m9!1s0x31cdb5fb4e518e7b:0xe9c5e4d401748f02!2sCoffee+Hauz!8m2!3d2.9876938!4d101.6778774!10e5!14m1!1BCgIgAQ!16s%2Fg%2F11wpk5d6j8!3m7!1s0x31cdb5fb4e518e7b:0xe9c5e4d401748f02!8m2!3d2.9876938!4d101.6778774!9m1!1b1!16s%2Fg%2F11wpk5d6j8?entry=ttu" target="_blank" rel="noopener noreferrer" class="pill inline-flex w-fit border-2 border-charcoal px-5 py-3 text-[10px] font-black uppercase tracking-widest text-charcoal transition-colors hover:bg-charcoal hover:text-mortar">Read on Google Maps ↗</a>
+        </div>
+        <div class="rating-grid mb-6 grid grid-cols-3 gap-3">
+          <div class="rounded-[20px] border-2 border-charcoal px-4 py-4 sm:px-5"><p class="text-[9px] font-black uppercase tracking-widest text-structural sm:text-[10px]">Food</p><p class="mt-1 text-2xl font-black text-charcoal">5<span class="text-sm text-tungsten">/5</span></p></div>
+          <div class="rounded-[20px] border-2 border-charcoal px-4 py-4 sm:px-5"><p class="text-[9px] font-black uppercase tracking-widest text-structural sm:text-[10px]">Service</p><p class="mt-1 text-2xl font-black text-charcoal">5<span class="text-sm text-tungsten">/5</span></p></div>
+          <div class="rounded-[20px] border-2 border-charcoal px-4 py-4 sm:px-5"><p class="text-[9px] font-black uppercase tracking-widest text-structural sm:text-[10px]">Atmosphere</p><p class="mt-1 text-2xl font-black text-charcoal">5<span class="text-sm text-tungsten">/5</span></p></div>
+        </div>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <article class="review-card flex flex-col rounded-[24px] border-2 border-charcoal bg-mortar p-5 sm:p-6"><div class="flex items-start justify-between gap-4"><div><h3 class="text-sm font-black uppercase tracking-[-.04em]">Nur Hidayatun Nabilah Batwarudin</h3><p class="mt-1 text-[10px] font-bold uppercase tracking-widest text-structural">8 reviews · 8 photos · 2 months ago</p></div><span class="whitespace-nowrap text-sm font-black text-tungsten">★★★★★</span></div><p class="mt-5 text-sm leading-6">Been supporting Coffee Hauz since they first opened. The coffee quality has improved so much and has genuinely become one I enjoy. You can tell they keep putting real effort into getting better.</p><p class="mt-6 border-t border-charcoal/30 pt-4 text-[10px] font-bold uppercase tracking-widest text-structural">Food 5 · Service 5 · Atmosphere 5</p></article>
+          <article class="review-card flex flex-col rounded-[24px] border-2 border-charcoal bg-mortar p-5 sm:p-6"><div class="flex items-start justify-between gap-4"><div><h3 class="text-sm font-black uppercase tracking-[-.04em]">JLavier</h3><p class="mt-1 text-[10px] font-bold uppercase tracking-widest text-structural">Local Guide · 47 reviews · 16 photos · 5 months ago</p></div><span class="whitespace-nowrap text-sm font-black text-tungsten">★★★★★</span></div><p class="mt-5 text-sm leading-6">Really lovely area with a close community feel. The coffee is absolutely delicious, the milk is clearly good quality, and the beans are top tier. If I’m close, I’ll be right back.</p><p class="mt-6 border-t border-charcoal/30 pt-4 text-[10px] font-bold uppercase tracking-widest text-structural">Take out · Food 5 · Service 5 · Atmosphere 5</p></article>
+          <article class="review-card flex flex-col rounded-[24px] border-2 border-charcoal bg-mortar p-5 sm:p-6"><div class="flex items-start justify-between gap-4"><div><h3 class="text-sm font-black uppercase tracking-[-.04em]">Eja Anissa</h3><p class="mt-1 text-[10px] font-bold uppercase tracking-widest text-structural">3 reviews · 1 photo · 5 months ago</p></div><span class="whitespace-nowrap text-sm font-black text-tungsten">★★★★★</span></div><p class="mt-5 text-sm leading-6">The coffee has a proper roasted flavour and an amazing aroma. The space feels warm and cozy, the makcik is kind and friendly, and it honestly feels like home.</p><p class="mt-6 border-t border-charcoal/30 pt-4 text-[10px] font-bold uppercase tracking-widest text-structural">Dine in · RM 20–40 · Quiet · Food 5 · Service 5 · Atmosphere 5</p></article>
+          <article class="review-card flex flex-col rounded-[24px] border-2 border-charcoal bg-mortar p-5 sm:p-6"><div class="flex items-start justify-between gap-4"><div><h3 class="text-sm font-black uppercase tracking-[-.04em]">Muhamad Haikal Bin Ahmad Radzi</h3><p class="mt-1 text-[10px] font-bold uppercase tracking-widest text-structural">3 reviews · 5 photos · 7 months ago</p></div><span class="whitespace-nowrap text-sm font-black text-tungsten">★★★★★</span></div><p class="mt-5 text-sm leading-6">Affordable coffee with premium taste. Super delicious and smooth. Definitely a must-visit spot.</p><p class="mt-6 border-t border-charcoal/30 pt-4 text-[10px] font-bold uppercase tracking-widest text-structural">No wait · Quiet · Food 5 · Service 5 · Atmosphere 5</p></article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mx-auto grid max-w-7xl grid-cols-1 border-x border-neutral-300 sm:grid-cols-2 lg:grid-cols-5">
+      <div class="border-b border-neutral-300 px-4 py-6 sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Hours</p><p class="mt-2 text-sm font-bold uppercase">4 PM — 12 AM</p></div>
+      <a href="tel:+60164424883" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Phone</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">016-442 4883</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Call the hauz ↗</span></a>
+      <a href="https://www.instagram.com/coffeehauzcafe?utm_source=ig_web_button_share_sheet&amp;stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Instagram</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">@coffeehauzcafe</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Follow the night ↗</span></a>
+      <a href="https://www.tiktok.com/@coffeehauzcafe?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">TikTok</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">@coffeehauzcafe</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Watch the pours ↗</span></a>
       <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Find us</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">Google Maps</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Open directions ↗</span></a>
     </footer>
   </main>
 
   <script>
+    document.documentElement.classList.add('js');
     const openHour = 16;
-    const status = new Date().getHours() >= openHour ? 'Open Tonight' : 'Roasting Soon · Opens 4 PM';
+    const status = new Date().getHours() >= openHour ? 'Open Now · Closes 12 AM' : 'Roasting Soon · Opens 4 PM';
     document.querySelector('#statusText').textContent = status;
+    document.querySelector('#location').before(document.querySelector('#signatures'));
+    document.querySelector('#location').before(document.querySelector('#reviews'));
+
+    const revealGroups = [
+      ['#signatures > div > div:first-child', 0],
+      ['#signatures article', 80],
+      ['#reviews > div > div:first-child', 0],
+      ['#reviews > div > div:nth-child(2) > div', 90],
+      ['#reviews article', 100],
+      ['#location > div > div:first-child', 0, 'from-left'],
+      ['#location > div > div:last-child', 120, 'from-right'],
+      ['footer > *', 70]
+    ];
+
+    revealGroups.forEach(([selector, step, direction]) => {
+      document.querySelectorAll(selector).forEach((element, index) => {
+        element.classList.add('reveal');
+        if (direction) element.classList.add(direction);
+        element.style.setProperty('--reveal-delay', `${Math.min(index * step, 400)}ms`);
+      });
+    });
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -45px' });
+
+    document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
   </script>
 </body>
 </html>
