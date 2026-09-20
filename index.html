@@ -54,6 +54,10 @@
     @media (max-width:380px) { .signature-grid { grid-template-columns:1fr; } }
     .status-dot { animation:pulse 1.8s infinite; }
     @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.25; } }
+    .enquiry-form label { display:block; margin-bottom:8px; font-size:14px; font-weight:700; }
+    .enquiry-form input,.enquiry-form select,.enquiry-form textarea { display:block; width:100%; min-width:0; border:1px solid #76513c; border-radius:10px; background:#fffdf7; color:#44271d; padding:12px; font:inherit; font-size:16px; }
+    .enquiry-form textarea { resize:vertical; }
+    .enquiry-form input:focus-visible,.enquiry-form select:focus-visible,.enquiry-form textarea:focus-visible,.enquiry-form button:focus-visible { outline:3px solid #087455; outline-offset:3px; }
   </style>
 </head>
 <body class="grain antialiased">
@@ -78,7 +82,7 @@
           </div>
           <p class="mb-4 text-[10px] font-black uppercase tracking-[.28em] text-[#f2ca79]">Outdoor coffee · Seri Kembangan</p>
           <h1 class="hero-title text-5xl font-bold leading-[.98] tracking-[-.045em] text-white sm:text-7xl lg:text-[84px]">Good coffee. Good company. Your table after dark.</h1>
-          <p class="mt-7 max-w-2xl text-base font-medium leading-7 text-mortar/90 sm:text-lg">Settle into a camping chair, order at the counter, and stay awhile. We pour from 4 PM to 12 AM.</p>
+          <p class="mt-7 max-w-2xl text-base font-medium leading-7 text-mortar/90 sm:text-lg">Settle into a camping chair, order at the counter, and stay awhile. We pour from 4 PM to 12 PM.</p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="menu.html" class="pill bg-charcoal px-6 py-3 text-xs font-black uppercase tracking-widest text-mortar shadow-lg transition-transform hover:-translate-y-0.5">See the menu</a>
             <a href="#location" class="pill border border-mortar bg-mortar/10 px-6 py-3 text-xs font-black uppercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-mortar hover:text-charcoal">Get directions</a>
@@ -103,6 +107,13 @@
           <h2 class="mt-3 text-4xl font-black uppercase leading-none tracking-[-.07em]">Come by<br>after dark.</h2>
           <p class="mt-5 max-w-sm text-sm leading-6 text-neutral-300">Park up, find a camping chair, and order at the counter. The map opens straight to Coffee Hauz.</p>
           <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex border border-tungsten px-4 py-3 text-xs font-black uppercase tracking-widest text-tungsten transition-colors hover:bg-tungsten hover:text-charcoal">Open directions ↗</a>
+          <div class="mt-6 border-t border-mortar/25 pt-5">
+            <p class="text-sm font-medium text-mortar">Also available for delivery on</p>
+            <div class="mt-3 flex flex-wrap gap-3" aria-label="Delivery platforms">
+              <span class="inline-flex items-center rounded-full bg-mortar px-4 py-2 text-sm font-bold text-charcoal">GrabFood</span>
+              <span class="inline-flex items-center rounded-full bg-mortar px-4 py-2 text-sm font-bold text-[#b50954]">foodpanda</span>
+            </div>
+          </div>
         </div>
         <div class="map-frame soft-card overflow-hidden border-4 border-mortar bg-neutral-200 lg:col-span-8">
           <iframe title="Map to Coffee Hauz, Seri Kembangan" src="https://www.google.com/maps?q=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan&z=15&output=embed" class="h-[360px] w-full border-0 sm:h-[420px]" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -169,9 +180,31 @@
       </div>
     </section>
 
+    <section id="enquiry" class="border-b border-charcoal bg-mortar px-4 py-12 sm:px-6 lg:px-8 lg:py-16" aria-labelledby="enquiry-title">
+      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-structural">Get in touch</p>
+          <h2 id="enquiry-title" class="mt-3 text-4xl font-black uppercase leading-none text-charcoal">Let's talk.</h2>
+          <p class="mt-5 max-w-md text-base leading-7 text-structural">Have a question, planning an event, or want to share your feedback? Send the hauz a message.</p>
+          <p class="mt-4 text-sm leading-6 text-structural">For a quick enquiry, call <a href="tel:+60164424883" class="font-bold underline">016-442 4883</a> or <a href="tel:+60173964827" class="font-bold underline">017-396 4827</a>.</p>
+        </div>
+        <form id="enquiry-form" action="https://formspree.io/f/mppwpzna" method="POST" class="enquiry-form rounded-[24px] border-2 border-charcoal p-5 sm:p-8">
+          <p class="mb-5 text-sm text-structural">All fields are required unless marked optional.</p>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div><label for="enquiry-name">Name</label><input id="enquiry-name" name="name" type="text" autocomplete="name" maxlength="120" required></div>
+            <div><label for="enquiry-email">Email</label><input id="enquiry-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+            <div><label for="enquiry-phone">Phone (optional)</label><input id="enquiry-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
+            <div><label for="enquiry-type">Enquiry type</label><select id="enquiry-type" name="enquiry_type" required><option value="">Choose a topic</option><option value="General">General enquiry</option><option value="Events">Events</option><option value="Feedback">Feedback</option></select></div>
+          </div>
+          <div class="mt-5"><label for="enquiry-message">Message</label><textarea id="enquiry-message" name="message" rows="5" maxlength="5000" required></textarea></div>
+          <p class="mt-4 text-sm leading-6 text-structural">Your details will be sent through Formspree so we can respond to your enquiry.</p>
+          <button type="submit" class="mt-5 rounded-full bg-charcoal px-6 py-3 text-base font-bold text-mortar">Send enquiry ↗</button>
+        </form>
+      </div>
+    </section>
     <footer class="mx-auto grid max-w-7xl grid-cols-1 border-x border-neutral-300 sm:grid-cols-2 lg:grid-cols-5">
       <div class="border-b border-neutral-300 px-4 py-6 sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Hours</p><p class="mt-2 text-sm font-bold uppercase">4 PM — 12 AM</p></div>
-      <a href="tel:+60164424883" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Phone</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">016-442 4883</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Call the hauz ↗</span></a>
+      <div class="border-b border-neutral-300 px-4 py-6 sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Phone</p><a href="tel:+60164424883" class="mt-2 block py-2 text-sm font-bold tracking-tight underline underline-offset-4">016-442 4883</a><a href="tel:+60173964827" class="block py-2 text-sm font-bold tracking-tight underline underline-offset-4">017-396 4827</a><p class="mt-3 text-[10px] font-bold uppercase tracking-widest text-tungsten">Call the hauz ↗</p></div>
       <a href="https://www.instagram.com/coffeehauzcafe?utm_source=ig_web_button_share_sheet&amp;stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Instagram</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">@coffeehauzcafe</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Follow the night ↗</span></a>
       <a href="https://www.tiktok.com/@coffeehauzcafe?_r=1&amp;_t=ZS-99ekcU33jhB" target="_blank" rel="noopener noreferrer" class="border-b border-neutral-300 px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:border-b-0 lg:border-r lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">TikTok</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">@coffeehauzcafe</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Watch the pours ↗</span></a>
       <a href="https://www.google.com/maps/search/?api=1&query=12%2C%20Jalan%20PP%2014%2C%20Taman%20Pinggiran%20Putra%2C%20Seri%20Kembangan" target="_blank" rel="noopener noreferrer" class="px-4 py-6 transition-colors hover:bg-charcoal hover:text-mortar sm:px-6 lg:px-8"><p class="text-[10px] uppercase tracking-[.2em] text-structural">Find us</p><p class="mt-2 text-sm font-bold uppercase tracking-tight">Google Maps</p><span class="mt-3 block text-[10px] font-bold uppercase tracking-widest text-tungsten">Open directions ↗</span></a>
