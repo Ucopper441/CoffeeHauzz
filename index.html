@@ -58,6 +58,45 @@
     .enquiry-form input,.enquiry-form select,.enquiry-form textarea { display:block; width:100%; min-width:0; border:1px solid #76513c; border-radius:10px; background:#fffdf7; color:#44271d; padding:12px; font:inherit; font-size:16px; }
     .enquiry-form textarea { resize:vertical; }
     .enquiry-form input:focus-visible,.enquiry-form select:focus-visible,.enquiry-form textarea:focus-visible,.enquiry-form button:focus-visible { outline:3px solid #087455; outline-offset:3px; }
+    .hero-carousel { position:relative; background:var(--green); }
+    .hero-slides { position:relative; touch-action:pan-y; }
+    .hero-carousel .hero-slide[aria-hidden="true"] { visibility:hidden; pointer-events:none; }
+    .hero-fries { position:absolute; inset:0; background:#fff; }
+    .hero-fries img { width:100%; height:100%; object-fit:contain; display:block; }
+    .hero-fries-copy { position:absolute; z-index:1; left:max(80px,calc((100% - 1420px)/2)); top:50%; transform:translateY(-50%); max-width:340px; border:2px solid #ff9000; border-radius:14px; padding:24px 22px; background:#16110f; color:#fff; box-shadow:8px 8px 0 #ff9000,0 16px 34px rgba(0,0,0,.22); }
+    .hero-fries-copy::before { content:''; position:absolute; top:0; right:18px; width:44px; height:9px; transform:skew(-25deg); background:#ff0053; }
+    .hero-fries-copy .fries-eyebrow { margin:0 0 12px; color:#ff9900; font-size:12px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+    .hero-fries-copy h2 { margin:0 0 14px; color:#ff0053; font-family:Impact,'Arial Narrow',Arial,sans-serif; font-size:clamp(36px,3.2vw,50px); font-weight:900; line-height:.98; letter-spacing:.025em; text-transform:uppercase; }
+    .hero-fries-copy h2 span { color:#ffc400; }
+    .hero-fries-copy .fries-description { margin:0; color:#fff; font-size:15px; line-height:1.5; }
+    .hero-fries-copy .fries-hours { margin:12px 0 0; color:#ffc400; font-size:13px; font-weight:900; line-height:1.4; text-transform:uppercase; }
+    .hero-fries-copy a { display:inline-flex; margin-top:20px; min-height:44px; align-items:center; border:2px solid #111; border-radius:8px; padding:10px 16px; background:#ffc400; color:#16110f; box-shadow:4px 4px 0 #ff0053; font-size:12px; font-weight:900; letter-spacing:.05em; text-transform:uppercase; }
+    .hero-fries-copy a:hover { background:#ffdb46; }
+    .hero-fries-copy a:focus-visible { outline:3px solid #fff; outline-offset:4px; }
+    @media (max-width:767px) { .hero-fries img { position:absolute; top:3%; height:56%; } .hero-fries-copy { left:60px; right:60px; top:auto; bottom:76px; transform:none; max-width:none; padding:16px; text-align:center; } .hero-fries-copy h2 { font-size:34px; } .hero-fries-copy .fries-description { font-size:13px; } .hero-fries-copy a { margin-top:12px; } }
+    @media (max-width:380px) { .hero-fries-copy { left:48px; right:48px; bottom:64px; padding:12px; } .hero-fries-copy h2 { font-size:29px; } }
+
+    .hero-controls:not([hidden]) { position:absolute; inset:0; z-index:2; pointer-events:none; }
+    .hero-controls button { display:inline-flex; align-items:center; justify-content:center; border:0; cursor:pointer; pointer-events:auto; }
+    .hero-controls .hero-arrow { position:absolute; top:50%; width:48px; height:48px; padding:0; transform:translateY(-50%); border:1px solid rgba(255,243,214,.5); border-radius:50%; background:rgba(8,116,85,.92); color:var(--paper); box-shadow:0 4px 16px rgba(0,0,0,.22); transition:background .2s ease, box-shadow .2s ease; }
+    .hero-controls .hero-arrow:hover { background:#07583f; box-shadow:0 6px 18px rgba(0,0,0,.3); }
+    .hero-arrow svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+    .hero-prev { left:12px; }
+    .hero-next { right:12px; }
+    .hero-pagination { position:absolute; left:50%; bottom:20px; transform:translateX(-50%); display:flex; align-items:center; gap:2px; padding:3px 8px; border:1px solid rgba(8,116,85,.2); border-radius:999px; background:rgba(255,243,214,.96); box-shadow:0 3px 14px rgba(0,0,0,.2); }
+    .hero-pagination button { width:34px; height:32px; padding:0; border-radius:999px; background:transparent; color:var(--green); }
+    .hero-dot { display:block; width:8px; height:8px; border-radius:999px; background:currentColor; opacity:.45; transition:width .2s ease, opacity .2s ease; }
+    .hero-pagination button:hover .hero-dot { opacity:.8; }
+    .hero-pagination button[aria-current="true"] .hero-dot { width:22px; opacity:1; }
+    .hero-controls button:focus-visible { outline:3px solid #d97745; outline-offset:2px; }
+    .hero-carousel[data-active-slide="1"] .hero-arrow { border-color:#ff9000; background:#16110f; color:#ffc400; }
+    .hero-carousel[data-active-slide="1"] .hero-arrow:hover { background:#ff0053; color:#fff; }
+    .hero-carousel[data-active-slide="1"] .hero-pagination { border-color:#ff9000; background:#16110f; }
+    .hero-carousel[data-active-slide="1"] .hero-pagination button { color:#ffc400; }
+
+    .hero-carousel .hero-stage > div { padding-left:60px; padding-right:60px; padding-bottom:76px; }
+    @media (min-width:768px) { .hero-prev { left:24px; } .hero-next { right:24px; } .hero-carousel .hero-stage > div { padding-left:80px; padding-right:80px; } }
+    .hero-slide-count { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
   </style>
 </head>
 <body class="grain antialiased">
@@ -73,7 +112,9 @@
       </div>
     </header>
 
-    <section id="top" class="hero-stage relative flex items-center overflow-hidden text-mortar">
+    <section id="top" class="hero-carousel" role="region" aria-roledescription="carousel" aria-label="Coffee Hauz highlights">
+      <div class="hero-slides">
+      <div id="hero-coffee" class="hero-slide hero-stage relative flex items-center overflow-hidden text-mortar" role="group" aria-roledescription="slide" aria-label="1 of 2: Coffee Hauz">
       <div class="mx-auto w-full max-w-7xl px-6 py-16 sm:px-10 lg:px-8">
         <div class="max-w-3xl">
           <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-mortar/50 bg-black/15 px-4 py-2 backdrop-blur-sm">
@@ -82,7 +123,7 @@
           </div>
           <p class="mb-4 text-[10px] font-black uppercase tracking-[.28em] text-[#f2ca79]">Outdoor coffee · Seri Kembangan</p>
           <h1 class="hero-title text-5xl font-bold leading-[.98] tracking-[-.045em] text-white sm:text-7xl lg:text-[84px]">Good coffee. Good company. Your table after dark.</h1>
-          <p class="mt-7 max-w-2xl text-base font-medium leading-7 text-mortar/90 sm:text-lg">Settle into a camping chair, order at the counter, and stay awhile. We pour from 4 PM to 12 PM.</p>
+          <p class="mt-7 max-w-2xl text-base font-medium leading-7 text-mortar/90 sm:text-lg">Settle into a camping chair, order at the counter, and stay awhile. We pour from 4 PM to 12 AM.</p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="menu.html" class="pill bg-charcoal px-6 py-3 text-xs font-black uppercase tracking-widest text-mortar shadow-lg transition-transform hover:-translate-y-0.5">See the menu</a>
             <a href="#location" class="pill border border-mortar bg-mortar/10 px-6 py-3 text-xs font-black uppercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-mortar hover:text-charcoal">Get directions</a>
@@ -93,6 +134,27 @@
             <span><strong class="text-[#f2ca79]">5/5</strong> Atmosphere</span>
           </div>
         </div>
+      </div>
+      </div>
+      <div id="hero-fries" class="hero-slide hero-fries" role="group" aria-roledescription="slide" aria-label="2 of 2: Mommy Fries" aria-hidden="true" inert>
+        <img src="assets/mommyfries.jpg" alt="Mommy Fries — Street Food With A Premium Touch" width="1254" height="1254" decoding="async">
+        <div class="hero-fries-copy">
+          <p class="fries-eyebrow">Now at Coffee Hauz</p>
+          <h2>Loaded<br><span>goodness.</span></h2>
+          <p class="fries-description">Fries, nachos and bold flavours made for sharing after dark.</p>
+          <p class="fries-hours">Weekends &amp; public holidays<br>4 PM – 12 AM</p>
+          <a href="menu.html?category=mommy-fries">Explore Mommy Fries ↗</a>
+        </div>
+      </div>
+      </div>
+      <div class="hero-controls" hidden>
+        <button type="button" class="hero-arrow hero-prev" data-hero-step="-1" aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg></button>
+        <button type="button" class="hero-arrow hero-next" data-hero-step="1" aria-label="Next slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg></button>
+        <div class="hero-pagination">
+        <button type="button" data-hero-slide="0" aria-controls="hero-coffee" aria-label="Show Coffee Hauz slide" aria-current="true"><span class="hero-dot"></span></button>
+        <button type="button" data-hero-slide="1" aria-controls="hero-fries" aria-label="Show Mommy Fries slide"><span class="hero-dot"></span></button>
+        </div>
+        <span class="hero-slide-count" aria-live="polite" aria-atomic="true">1 / 2</span>
       </div>
     </section>
 
@@ -247,6 +309,58 @@
     }, { threshold:0.12, rootMargin:'0px 0px -45px' });
 
     document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+  </script>
+  <script>
+    (() => {
+      const carousel = document.querySelector('.hero-carousel');
+      const slides = [...carousel.querySelectorAll('.hero-slide')];
+      const selectors = [...carousel.querySelectorAll('[data-hero-slide]')];
+      const controls = carousel.querySelector('.hero-controls');
+      let active = 0;
+      const showSlide = index => {
+        active = (index + slides.length) % slides.length;
+        carousel.dataset.activeSlide = String(active);
+        slides.forEach((slide, i) => {
+          slide.setAttribute('aria-hidden', String(i !== active));
+          slide.inert = i !== active;
+        });
+        selectors.forEach((button, i) => {
+          if (i === active) button.setAttribute('aria-current', 'true');
+          else button.removeAttribute('aria-current');
+        });
+        carousel.querySelector('.hero-slide-count').textContent = `${active + 1} / ${slides.length}`;
+      };
+      controls.hidden = false;
+      controls.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button) return;
+        if (button.hasAttribute('data-hero-step')) showSlide(active + Number(button.dataset.heroStep));
+        else showSlide(Number(button.dataset.heroSlide));
+      });
+      controls.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        showSlide(active + (event.key === 'ArrowRight' ? 1 : -1));
+      });
+      const surface = carousel.querySelector('.hero-slides');
+      let touchStart = null;
+      surface.addEventListener('touchstart', event => {
+        touchStart = event.touches.length === 1 ? {x:event.touches[0].clientX, y:event.touches[0].clientY} : null;
+      }, {passive:true});
+      surface.addEventListener('touchcancel', () => { touchStart = null; }, {passive:true});
+      surface.addEventListener('touchend', event => {
+        if (!touchStart || !event.changedTouches.length) return;
+        const dx = event.changedTouches[0].clientX - touchStart.x;
+        const dy = event.changedTouches[0].clientY - touchStart.y;
+        touchStart = null;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          // Move focus out of the outgoing slide before making it inert.
+          if (slides[active].contains(document.activeElement)) selectors[dx < 0 ? (active + 1) % slides.length : (active + slides.length - 1) % slides.length].focus({preventScroll:true});
+          showSlide(active + (dx < 0 ? 1 : -1));
+        }
+      }, {passive:true});
+      showSlide(0);
+    })();
   </script>
 </body>
 </html>
