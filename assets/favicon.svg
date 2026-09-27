@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Coffee Hauz</title>
+  <rect width="64" height="64" rx="18" fill="#2d7657"/>
+  <path d="M10 33C22 33 32 23 32 10C32 23 42 33 54 33" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="32" cy="43" rx="7" ry="11" fill="#fff"/>
+  <path d="M32 32C27 40 37 45 32 54" fill="none" stroke="#2d7657" stroke-width="2"/>
+  <ellipse cx="18" cy="46" rx="4" ry="6" transform="rotate(-35 18 46)" fill="#fff"/>
+  <ellipse cx="46" cy="46" rx="4" ry="6" transform="rotate(35 46 46)" fill="#fff"/>
+</svg>
